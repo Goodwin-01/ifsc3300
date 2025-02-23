@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPG Calculator</title>
+    <style>
+        /* Basic styling to make the form look neat */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 0 auto;
+            width: 600px;
+            border: 3px solid blue;
+            padding: 0 2em 1em;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        div {
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: inline-block;
+            width: 10em;
+            text-align: right;
+            margin-right: 0.5em;
+        }
+
+        button {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>MPG Calculator</h1>
+    <!-- Form to input miles and gallons -->
+    <form id="mpgForm">
+        <div>
+            <label for="miles">Miles:</label>
+            <input type="text" id="miles"> <!-- Input for miles -->
+        </div>
+        <div>
+            <label for="gallons">Gallons:</label>
+            <input type="text" id="gallons"> <!-- Input for gallons -->
+        </div>
+        <div>
+            <label for="mpg">MPG:</label>
+            <input type="text" id="mpg" readonly> <!-- This shows the result (MPG) -->
+        </div>
+        <div>
+            <button type="button" id="calculate">Calculate MPG</button> <!-- Button to calculate MPG -->
+            <button type="button" id="clearEntries">Clear Entries</button> <!-- Button to clear form -->
+        </div>
+    </form>
+
+    <script>
+        // This function checks if the miles value is valid (positive number)
+        function validateMiles() {
+            const miles = document.getElementById('miles').value;
+            if (isNaN(miles)) { // Checks if it's not a number
+                alert("Miles must be a number.");
+                return false;
+            } else if (miles <= 0) { // Checks if it's less than or equal to zero
+                alert("Miles must be greater than zero.");
+                return false;
+            }
+            return true; // Miles is valid
+        }
+
+        // This function checks if the gallons value is valid (positive number)
+        function validateGallons() {
+            const gallons = document.getElementById('gallons').value;
+            if (isNaN(gallons)) { // Checks if it's not a number
+                alert("Gallons must be a number.");
+                return false;
+            } else if (gallons <= 0) { // Checks if it's less than or equal to zero
+                alert("Gallons must be greater than zero.");
+                return false;
+            }
+            return true; // Gallons is valid
+        }
+
+        // This function calculates the MPG if both miles and gallons are valid
+        function calculateMPG() {
+            // Validate both miles and gallons
+            if (validateMiles() && validateGallons()) {
+                const miles = parseFloat(document.getElementById('miles').value); // Get miles value
+                const gallons = parseFloat(document.getElementById('gallons').value); // Get gallons value
+                const mpg = miles / gallons; // Calculate MPG
+                document.getElementById('mpg').value = mpg.toFixed(2); // Show the result
+            }
+        }
+
+        // This function clears all the input fields and focuses back to miles input
+        function clearEntries() {
+            document.getElementById('miles').value = ''; // Clear miles input
+            document.getElementById('gallons').value = ''; // Clear gallons input
+            document.getElementById('mpg').value = ''; // Clear mpg input
+            document.getElementById('miles').focus(); // Focus back to miles input
+        }
+
+        // When the page is loaded, set up event listeners for buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up the Calculate button
+            document.getElementById('calculate').addEventListener('click', calculateMPG);
+            // Set up the Clear button
+            document.getElementById('clearEntries').addEventListener('click', clearEntries);
+        });
+    </script>
+</body>
+</html>
