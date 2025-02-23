@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Scores</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 0 auto;
+            width: 600px;
+            border: 3px solid blue;
+            padding: 0 2em 1em;
+        }
+        h1 {
+            color: blue;
+        }
+        label {
+            float: left;
+            width: 11em;
+            text-align: right;
+        }
+        input {
+            margin-left: 1em;
+            margin-bottom: .5em;
+        }
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Score Form</h1>
+    <form id="scoreForm">
+        <label for="score1">Score 1:</label>
+        <input type="number" id="score1" name="score1" required><br>
+        <label for="score2">Score 2:</label>
+        <input type="number" id="score2" name="score2" required><br>
+        <label for="score3">Score 3:</label>
+        <input type="number" id="score3" name="score3" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="test_scores.js"></script>
+</body>
+</html>
+
+<script>
+    "use strict";
+
+document.getElementById('scoreForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let score1 = parseFloat(document.getElementById('score1').value);
+    let score2 = parseFloat(document.getElementById('score2').value);
+    let score3 = parseFloat(document.getElementById('score3').value);
+    let total = score1 + score2 + score3;
+    
+    // Use concatenation instead of template literals
+    let html = "Total Score: " + total;
+    
+    // Assuming you want to show this in an alert
+    alert(html);
+});
+</script>
+
+</body>
+</html>

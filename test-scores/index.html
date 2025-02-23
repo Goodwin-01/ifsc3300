@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highest Score App</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 0 auto;
+            width: 600px;
+            border: 3px solid blue;
+            padding: 0 2em 1em;
+        }
+
+        h1 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Highest Score</h1>
+
+    <script>
+        // Step 3: Declare the variable to store the highest score
+        let highestScore = 0;
+
+        // Sample array of scores
+        let scores = [82, 93, 77, 100, 89, 56];
+
+        // Step 4: Use a for-of loop to find the highest score
+        for (let score of scores) {
+            if (score > highestScore) {
+                highestScore = score;
+            }
+        }
+
+        // Step 5: Display the highest score in the browser
+        document.write(`The highest score is: ${highestScore}`);
+
+        // After verifying step 5 works, comment out the above loop and proceed to modify the next loop
+        // Step 6: Modify the existing for loop to also find the highest score while summing scores
+
+        // Variable to store the total score
+        let totalScore = 0;
+
+        // New for loop to sum scores and find the highest score
+        for (let i = 0; i < scores.length; i++) {
+            totalScore += scores[i]; // Summing scores
+            if (scores[i] > highestScore) { // Update highest score
+                highestScore = scores[i];
+            }
+        }
+
+        // Display the total score and highest score
+        document.write(`<br>Total Score: ${totalScore}`);
+        document.write(`<br>The highest score is: ${highestScore}`);
+    </script>
+</body>
+</html>
