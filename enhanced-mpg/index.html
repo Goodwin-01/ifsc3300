@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPG Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 20px auto;
+            width: 600px;
+            border: 3px solid blue;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+
+        div {
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block;
+            width: 10em;
+            text-align: right;
+            margin-right: 0.5em;
+        }
+
+        input {
+            width: 150px;
+            padding: 5px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>MPG Calculator</h1>
+
+    <div>
+        <label for="miles">Miles:</label>
+        <input type="text" id="miles">
+    </div>
+
+    <div>
+        <label for="gallons">Gallons:</label>
+        <input type="text" id="gallons">
+    </div>
+
+    <div>
+        <label for="mpg">MPG:</label>
+        <input type="text" id="mpg" disabled>
+    </div>
+
+    <div>
+        <button id="calculate">Calculate MPG</button>
+        <button id="clear">Clear Entries</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("calculate").addEventListener("click", calculateMPG);
+            document.getElementById("clear").addEventListener("click", clearEntries);
+            document.getElementById("miles").addEventListener("dblclick", clearEntries);
+        });
+
+        function calculateMPG() {
+            let miles = document.getElementById("miles").value.trim();
+            let gallons = document.getElementById("gallons").value.trim();
+
+            if (!isNumeric(miles) || miles <= 0) {
+                alert("Error: Miles must be a positive number.");
+                return;
+            }
+
+            if (!isNumeric(gallons) || gallons <= 0) {
+                alert("Error: Gallons must be a positive number.");
+                return;
+            }
+
+            miles = parseFloat(miles);
+            gallons = parseFloat(gallons);
+            let mpg = (miles / gallons).toFixed(2);
+            document.getElementById("mpg").value = mpg;
+        }
+
+        function clearEntries() {
+            document.getElementById("miles").value = "";
+            document.getElementById("gallons").value = "";
+            document.getElementById("mpg").value = "";
+            document.getElementById("miles").focus();
+        }
+
+        function isNumeric(value) {
+            return !isNaN(value) && value !== "";
+        }
+    </script>
+</body>
+</html>
