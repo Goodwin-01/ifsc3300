@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPG Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 20px auto;
+            width: 300px;
+            border: 3px solid blue;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        label {
+            display: inline-block;
+            width: 80px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        input {
+            width: 100px;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>MPG Calculator</h1>
+    
+    <label for="miles">Miles:</label>
+    <input type="text" id="miles"><br><br>
+
+    <label for="gallons">Gallons:</label>
+    <input type="text" id="gallons"><br><br>
+
+    <button id="calculate">Calculate MPG</button>
+    <p id="mpg"></p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("calculate").addEventListener("click", () => {
+                let miles = parseFloat(document.getElementById("miles").value);
+                let gallons = parseFloat(document.getElementById("gallons").value);
+
+                if (isNaN(miles) || isNaN(gallons) || miles <= 0 || gallons <= 0) {
+                    alert("Please enter valid numeric values greater than zero.");
+                    return;
+                }
+
+                let mpg = miles / gallons;
+                mpg = mpg.toFixed(2); // Round to 2 decimal places
+
+                document.getElementById("mpg").textContent = `Miles per Gallon: ${mpg}`;
+            });
+        });
+    </script>
+</body>
+</html>
