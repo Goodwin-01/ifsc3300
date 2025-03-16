@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Rollover</title>
+    
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 16px;
+            text-align: center;
+            background-color: white;
+            border: 3px solid blue;
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        p img {
+            width: 200px;  /* Adjust image size */
+            height: auto;
+            margin: 10px;
+            border: 2px solid black;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Image Rollover Effect</h1>
+
+    <p>Hover over the images below:</p>
+
+    <!-- Images that change on hover -->
+    <p>
+        <img id="image1" src="hero.jpg" alt="Hero Image">
+        <img id="image2" src="bison.jpg" alt="Bison Image">
+    </p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the image elements by their IDs
+            var image1 = document.getElementById("image1");
+            var image2 = document.getElementById("image2");
+
+            // Change image1 when mouse is over it
+            image1.addEventListener("mouseover", function () {
+                image1.src = "release.jpg"; // New image
+            });
+
+            // Change image1 back when mouse leaves
+            image1.addEventListener("mouseout", function () {
+                image1.src = "hero.jpg"; // Original image
+            });
+
+            // Change image2 when mouse is over it
+            image2.addEventListener("mouseover", function () {
+                image2.src = "deer.jpg"; // New image
+            });
+
+            // Change image2 back when mouse leaves
+            image2.addEventListener("mouseout", function () {
+                image2.src = "bison.jpg"; // Original image
+            });
+        });
+    </script>
+
+</body>
+</html>
