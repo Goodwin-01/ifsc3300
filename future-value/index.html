@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 0 auto;
+            width: 760px;
+            border: 3px solid blue;
+            padding: 0 2em 1em;
+        }
+        h1 {
+            color: blue;
+        }
+        div {
+            margin-bottom: 1em;
+        }
+        label {
+            display: inline-block;
+            width: 10em;
+            text-align: right;
+            margin-right: 0.5em;
+        }
+        span {
+            color: red;
+            font-size: .8em;
+        }
+        button {
+            padding: 0.5em 1em;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-left: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Future Value Calculator</h1>
+    <form id="fvForm">
+        <div>
+            <label for="investment">Investment Amount:</label>
+            <input type="text" id="investment" name="investment">
+            <span>*</span>
+        </div>
+        <div>
+            <label for="rate">Annual Interest Rate:</label>
+            <input type="text" id="rate" name="rate">
+            <span>*</span>
+        </div>
+        <div>
+            <label for="years">Number of Years:</label>
+            <input type="text" id="years" name="years">
+            <span>*</span>
+        </div>
+        <div>
+            <button type="button" id="calculateButton">Calculate</button>
+            <button type="button" id="clearButton">Clear</button>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#calculateButton").click(function() {
+                let investment = $("#investment").val();
+                let rate = $("#rate").val();
+                let years = $("#years").val();
+
+                if (investment === "" || rate === "" || years === "") {
+                    alert("Please fill out all fields.");
+                    return;
+                }
+
+                let futureValue = investment * Math.pow(1 + (rate / 100), years);
+                alert("Future Value: $" + futureValue.toFixed(2));
+            });
+
+            $("#clearButton").click(function() {
+                $("input[type='text']").val("");
+                $("span").text("*");
+                $("#investment").focus();
+            });
+
+            $("input[type='text']").dblclick(function() {
+                $("#clearButton").click();
+            });
+        });
+    </script>
+</body>
+</html>
