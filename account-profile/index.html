@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Form</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            margin: 0 auto;
+            width: 750px;
+            border: 3px solid blue;
+            padding: 0 2em 1em;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        div {
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: inline-block;
+            width: 7em;
+            text-align: right;
+        }
+
+        input {
+            margin-left: 1em;
+            margin-right: 0.5em;
+        }
+
+        span {
+            color: red; /* Makes error messages red */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Payment Form</h1>
+
+    <!-- The form for credit card info -->
+    <form id="payment_form">
+        <div>
+            <label for="credit_card">Credit Card:</label>
+            <input type="text" id="credit_card" name="credit_card" placeholder="1234-5678-9012-3456">
+            <span id="credit_card_error"></span>
+        </div>
+
+        <div>
+            <label for="expiration_date">Expiration Date:</label>
+            <input type="text" id="expiration_date" name="expiration_date" placeholder="MM/YYYY">
+            <span id="expiration_error"></span>
+        </div>
+
+        <div>
+            <button type="submit" id="save">Save</button>
+        </div>
+    </form>
+
+    <script>
+        // This function runs when the "Save" button is clicked
+        document.getElementById("save").addEventListener("click", function (e) {
+            let isValid = true; // Start by assuming everything is valid
+
+            // Get credit card value from input field
+            const creditCard = document.getElementById("credit_card").value.trim();
+
+            // Pattern: 4 sets of 4 digits separated by dashes
+            const creditCardPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+
+            // Clear any previous error message
+            document.getElementById("credit_card_error").textContent = "";
+
+            // Check if the credit card is empty or doesn't match the pattern
+            if (creditCard === "" || !creditCardPattern.test(creditCard)) {
+                isValid = false;
+                document.getElementById("credit_card_error").textContent =
+                    "Please enter a valid credit card number (e.g. 1234-5678-9012-3456)";
+            }
+
+            // Get expiration date value
+            const expiration = document.getElementById("expiration_date").value.trim();
+
+            // Pattern: MM/YYYY format
+            const expirationPattern = /^(0[1-9]|1[0-2])\/\d{4}$/;
+
+            // Clear any previous error message
+            document.getElementById("expiration_error").textContent = "";
+
+            // Check if expiration date is empty or not valid
+            if (expiration === "" || !isDate(expiration, expirationPattern, "credit")) {
+                isValid = false;
+                document.getElementById("expiration_error").textContent =
+                    "Please enter a valid expiration date (MM/YYYY)";
+            }
+
+            // Stop the form from submitting if anything is invalid
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        // This function checks if a date is valid
+        function isDate(input, pattern, type) {
+            // If the pattern doesn't match, return false
+            if (!pattern.test(input)) return false;
+
+            if (type === "credit") {
+                // For MM/YYYY format
+                const [month, year] = input.split("/");
+                const mm = parseInt(month, 10);
+                const yyyy = parseInt(year, 10);
+                return mm >= 1 && mm <= 12 && yyyy > 1900;
+            } else if (type === "full") {
+                // For MM/DD/YYYY format
+                const parts = input.split("/");
+                const mm = parseInt(parts[0], 10);
+                const dd = parseInt(parts[1], 10);
+                const yyyy = parseInt(parts[2], 10);
+                const date = new Date(`${yyyy}-${mm}-${dd}`);
+                return (
+                    date.getFullYear() === yyyy &&
+                    date.getMonth() + 1 === mm &&
+                    date.getDate() === dd
+                );
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>
+
+
+
