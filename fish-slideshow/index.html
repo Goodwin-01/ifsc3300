@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Slideshow</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            width: 380px;
+            height: 350px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 3px solid blue;
+            text-align: center;
+        }
+
+        h1 {
+            padding-bottom: 0.25em;
+            color: blue;
+        }
+
+        #slides img {
+            height: 250px;
+            display: none;
+        }
+
+        #caption {
+            font-size: 1.1em;
+            padding-top: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1>Photo Slideshow</h1>
+
+    <div id="slides">
+        <img src="images/lures.jpg" alt="Lures">
+        <img src="images/fish1.jpg" alt="Fish1">
+        <img src="images/catchrelease.jpg" alt="Catch and Release">
+        <img src="images/casting1.jpg" alt="casting1">
+        <img src="images/casting2.jpg" alt="casting2">
+        <img src="images/casting3.jpg" alt="casting3">
+    </div>
+
+    <p id="caption">Fish Slideshow</p>
+
+    <script>
+        "use strict";
+
+        $(document).ready(function () {
+            let currentIndex = 0;
+            const $slides = $("#slides img");
+            const $caption = $("#caption");
+            const imageCount = $slides.length;
+
+            $slides.eq(currentIndex).fadeIn(2000);
+            $caption.text($slides.eq(currentIndex).attr("alt")).show(1000);
+
+            setInterval(() => {
+                $slides.eq(currentIndex).fadeOut(2000);
+                $caption.hide(1000);
+
+                currentIndex = (currentIndex + 1) % imageCount;
+
+                setTimeout(() => {
+                    $slides.eq(currentIndex).fadeIn(2000);
+                    $caption.text($slides.eq(currentIndex).attr("alt")).show(1000);
+                }, 2000);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
