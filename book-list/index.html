@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 87.5%;
+            width: 650px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            border: 3px solid blue;
+        }
+        aside {
+            margin: 50px 0 10px 0;
+            width: 175px;
+            float: right;
+        }
+        main {
+            display: block;
+            margin-right: 25px;
+        }
+        h1 { 
+            font-size: 150%;
+        }
+        h2 {
+            font-size: 120%;
+            padding: .25em 0 .25em 25px;
+            cursor: pointer;
+            background: url(images/plus.png) no-repeat left center;
+        }
+        h2.minus {
+            background: url(images/minus.png) no-repeat left center;
+        }
+        div {
+            display: none;
+        }
+        div.open {
+            display: block;
+        }
+        ul {
+            padding-left: 45px;
+        }
+        li {
+            padding-bottom: .25em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Book Categories</h1>
+    <main>
+        <h2>Fiction</h2>
+        <div>
+            <ul>
+                <li><a href="images/book1.jpg">Book 1</a></li>
+                <li><a href="images/book2.jpg">Book 2</a></li>
+            </ul>
+        </div>
+
+        <h2>Non-fiction</h2>
+        <div>
+            <ul>
+                <li><a href="images/book3.jpg">Book 3</a></li>
+                <li><a href="images/book4.jpg">Book 4</a></li>
+            </ul>
+        </div>
+
+        <h2>Science</h2>
+        <div>
+            <ul>
+                <li><a href="images/book5.jpg">Book 5</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <aside></aside>
+
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const headings = document.querySelectorAll("h2");
+            const links = document.querySelectorAll("main a");
+            const aside = document.querySelector("aside");
+
+            // Preload images
+            links.forEach(link => {
+                const image = new Image();
+                image.src = link.href;
+            });
+
+            // Toggle sections on heading click
+            headings.forEach(h2 => {
+                h2.addEventListener("click", () => {
+                    const div = h2.nextElementSibling;
+
+                    // Collapse others
+                    document.querySelectorAll("div.open").forEach(openDiv => {
+                        if (openDiv !== div) {
+                            openDiv.classList.remove("open");
+                            openDiv.previousElementSibling.classList.remove("minus");
+                        }
+                    });
+
+                    // Toggle current
+                    h2.classList.toggle("minus");
+                    div.classList.toggle("open");
+
+                    // Clear image
+                    aside.innerHTML = "";
+                });
+            });
+
+            // Show image on link click
+            links.forEach(link => {
+                link.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    const img = document.createElement("img");
+                    img.src = link.href;
+                    aside.innerHTML = "";
+                    aside.appendChild(img);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
