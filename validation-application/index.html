@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Email List Signup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      margin: 0 auto;
+      width: 500px;
+      border: 3px solid blue;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: blue;
+    }
+
+    label {
+      display: inline-block;
+      width: 140px;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 200px;
+      margin-left: 10px;
+    }
+
+    span {
+      color: red;
+      font-size: 0.9em;
+      margin-left: 10px;
+    }
+
+    .form-row {
+      margin-bottom: 12px;
+    }
+
+    .checkboxes-horizontal {
+      display: flex;
+      gap: 20px;
+      margin-left: 150px;
+      align-items: center;
+    }
+
+    .buttons {
+      text-align: center;
+    }
+
+    .buttons input {
+      margin: 0 10px;
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <h2>Please join our email list</h2>
+
+  <form id="email_form">
+    <div class="form-row">
+      <label for="email_1">Email Address:</label>
+      <input type="email" id="email_1">
+      <span id="email_1_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label for="email_2">Confirm Email Address:</label>
+      <input type="email" id="email_2">
+      <span id="email_2_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name">
+      <span id="first_name_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name">
+      <span id="last_name_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label for="state">State Code:</label>
+      <input type="text" id="state" maxlength="2">
+      <span id="state_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label for="zip">Zip Code:</label>
+      <input type="text" id="zip">
+      <span id="zip_error"></span>
+    </div>
+
+    <div class="form-row">
+      <label>Email me about:</label>
+      <div class="checkboxes-horizontal">
+        <label><input type="checkbox" name="topics" value="web"> Web books</label>
+        <label><input type="checkbox" name="topics" value="java"> Java books</label>
+        <label><input type="checkbox" name="topics" value="net"> .NET books</label>
+        <span id="topics_error"></span>
+      </div>
+    </div>
+
+    <div class="form-row buttons">
+      <input type="submit" value="Join List">
+      <input type="reset" value="Reset">
+    </div>
+  </form>
+
+  <script>
+    $(document).ready(function () {
+      $("#email_1").focus();
+
+      $("#email_form").submit(function (event) {
+        let isValid = true;
+
+        const email1 = $("#email_1").val().trim();
+        const email2 = $("#email_2").val().trim();
+        $("#email_1").val(email1);
+        $("#email_2").val(email2);
+
+        if (email1 === "") {
+          $("#email_1_error").text("Must be a valid email address.");
+          isValid = false;
+        } else {
+          $("#email_1_error").text("");
+        }
+
+        if (email2 === "" || email1 !== email2) {
+          $("#email_2_error").text("Must equal first email entry.");
+          isValid = false;
+        } else {
+          $("#email_2_error").text("");
+        }
+
+        const firstName = $("#first_name").val().trim();
+        $("#first_name").val(firstName);
+        if (firstName === "") {
+          $("#first_name_error").text("This field is required.");
+          isValid = false;
+        } else {
+          $("#first_name_error").text("");
+        }
+
+        const lastName = $("#last_name").val().trim();
+        $("#last_name").val(lastName);
+        if (lastName === "") {
+          $("#last_name_error").text("This field is required.");
+          isValid = false;
+        } else {
+          $("#last_name_error").text("");
+        }
+
+        const state = $("#state").val().trim().toUpperCase();
+        $("#state").val(state);
+        if (state.length !== 2) {
+          $("#state_error").text("Use 2-character code.");
+          isValid = false;
+        } else {
+          $("#state_error").text("");
+        }
+
+        const zip = $("#zip").val().trim();
+        const zipPattern = /^\d{5}(-\d{4})?$/;
+        if (!zipPattern.test(zip)) {
+          $("#zip_error").text("Use 99999 or 99999-9999 format.");
+          isValid = false;
+        } else {
+          $("#zip_error").text("");
+        }
+
+        if ($("input[name='topics']:checked").length === 0) {
+          $("#topics_error").text("Select at least one.");
+          isValid = false;
+        } else {
+          $("#topics_error").text("");
+        }
+
+        if (!isValid) {
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
